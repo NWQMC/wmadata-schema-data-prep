@@ -6,7 +6,7 @@ the need for timely best science. The information is provided on the condition t
 the U.S. Geological Survey nor the U.S. Government shall be held liable for any damages resulting 
 from the authorized or unauthorized use of this information.**
 
-##Data Creation
+## Data Creation
 These data feed a geoserver infrastructure available here: https://labs.waterdata.usgs.gov/geoserver/web/
 
 This initial repository contains source data and assumes access to a locally running PostGres database and GDAL.
@@ -20,7 +20,7 @@ Shell scripts are used to download data layers and upload pgdumps to the Artifac
 
 Future work includes running the above process in a Jenkins pipeline.
 
-##GeoServer
+## GeoServer
 
 A sehll script emulates the configuration of a local geoserver.
 
