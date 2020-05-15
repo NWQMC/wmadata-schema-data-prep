@@ -1,0 +1,12 @@
+<dataStore>
+  <name>wmadata</name>
+  <connectionParameters>
+    <host>172.25.0.2</host>
+    <port>5432</port>
+    <database>nwis_db</database>
+    <schema>wmadata</schema>
+    <user>wmadata_reader</user>
+    <passwd>changeMe</passwd>
+    <dbtype>postgis</dbtype>
+  </connectionParameters>
+</dataStore>
