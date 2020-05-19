@@ -58,20 +58,19 @@ pipeline {
 
             touch wmadata_store.xml
 
-            cat <<EOF > wmadata_store.xml
-            <dataStore>
-              <name>'$GEOSERVER_STORE'</name>
+            contents="<dataStore>
+              <name>$GEOSERVER_STORE</name>
               <connectionParameters>
-                <host>'$NWIS_DATABASE_ADDRESS'</host>
+                <host>$NWIS_DATABASE_ADDRESS</host>
                 <port>5432</port>
-                <database>'$NWIS_DATABASE_NAME'</database>
-                <schema>'$WMADATA_SCHEMA_NAME'</schema>
-                <user>'$WMADATA_DB_READ_ONLY_USERNAME'</user>
-                <passwd>'$WMADATA_DB_READ_ONLY_PASSWORD'</passwd>
+                <database>$NWIS_DATABASE_NAME</database>
+                <schema>$WMADATA_SCHEMA_NAME</schema>
+                <user>$WMADATA_DB_READ_ONLY_USERNAME</user>
+                <passwd>$WMADATA_DB_READ_ONLY_PASSWORD</passwd>
                 <dbtype>postgis</dbtype>
               </connectionParameters>
             </dataStore>
-            EOF
+            cat <<< $contents > wmadata_store.xml
 
             curl -v -u admin:$GEOSERVER_PASSWORD -XPOST -H "Content-type: text/xml" \
               -d "<workspace><name>$GEOSERVER_WORKSPACE</name></workspace>" \
