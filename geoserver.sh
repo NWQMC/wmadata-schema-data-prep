@@ -1,6 +1,7 @@
-> wmadata_store.xml
+#!/usr/bin/env bash
 
-echo '<dataStore>
+cat <<EOF > wmadata_store.xml
+<dataStore>
   <name>wmadata</name>
   <connectionParameters>
     <host>172.25.0.2</host>
@@ -10,7 +11,8 @@ echo '<dataStore>
     <passwd>changeMe</passwd>
     <dbtype>postgis</dbtype>
   </connectionParameters>
-</dataStore>' > wmadata_store.xml
+</dataStore>
+EOF
 
 curl -v -u admin:geoserver -XPOST -H "Content-type: text/xml" \
   -d "<workspace><name>wmadata</name></workspace>" \

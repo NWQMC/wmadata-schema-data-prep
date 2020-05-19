@@ -1,7 +1,7 @@
 pipeline {
   agent {
     node {
-      label 'project:any'
+      label 'team:iow'
     }
   }
   stages {
@@ -26,7 +26,7 @@ pipeline {
             extensions: [],
             submoduleCfg: [],
             userRemoteConfigs: [[credentialsId: 'CIDA-Jenkins-GitHub',
-            url: 'https://github.com/gpetrochenkov-usgs/nwc2wmadataprep.git']]])
+            url: 'https://github.com/NWQMC/wmadata-schema-data-prep.git']]])
       }
     }
 
@@ -44,8 +44,8 @@ pipeline {
           env.WMADATA_DB_READ_ONLY_PASSWORD = wqpSecretsJson.WMADATA_DB_READ_ONLY_PASSWORD
           env.POSTGRES_PASSWORD = wqpSecretsJson.POSTGRES_PASSWORD
           env.GEOSERVER_PASSWORD = iowGeoSecretsJson.admin
-          env.GEOSERVER_WORKSPACE = 'wma'
-          env.GEOSERVER_STORE = 'wma'
+          env.GEOSERVER_WORKSPACE = 'wmadata'
+          env.GEOSERVER_STORE = 'wmadata'
 
           sh '''
             if [ $DEPLOY_STAGE == "TEST" ]; then
@@ -58,7 +58,8 @@ pipeline {
 
             touch wmadata_store.xml
 
-            echo '<dataStore>
+            cat <<EOF > wmadata_store.xml
+            <dataStore>
               <name>'$GEOSERVER_STORE'</name>
               <connectionParameters>
                 <host>'$NWIS_DATABASE_ADDRESS'</host>
@@ -69,7 +70,8 @@ pipeline {
                 <passwd>'$WMADATA_DB_READ_ONLY_PASSWORD'</passwd>
                 <dbtype>postgis</dbtype>
               </connectionParameters>
-            </dataStore>' > wmadata_store.xml
+            </dataStore>
+            EOF
 
             curl -v -u admin:$GEOSERVER_PASSWORD -XPOST -H "Content-type: text/xml" \
               -d "<workspace><name>$GEOSERVER_WORKSPACE</name></workspace>" \
