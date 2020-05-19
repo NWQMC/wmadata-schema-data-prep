@@ -44,8 +44,8 @@ pipeline {
           env.WMADATA_DB_READ_ONLY_PASSWORD = wqpSecretsJson.WMADATA_DB_READ_ONLY_PASSWORD
           env.POSTGRES_PASSWORD = wqpSecretsJson.POSTGRES_PASSWORD
           env.GEOSERVER_PASSWORD = iowGeoSecretsJson.admin
-          env.GEOSERVER_WORKSPACE = 'wmadata'
-          env.GEOSERVER_STORE = 'wmadata'
+          env.GEOSERVER_WORKSPACE = 'wma'
+          env.GEOSERVER_STORE = 'wma'
 
           sh '''
             if [ $DEPLOY_STAGE == "TEST" ]; then
