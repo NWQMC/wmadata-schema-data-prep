@@ -1,7 +1,7 @@
 pipeline {
   agent {
     node {
-      label 'team:iow'
+      label 'project:any'
     }
   }
   stages {
