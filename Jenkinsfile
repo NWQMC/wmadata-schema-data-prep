@@ -81,23 +81,23 @@ pipeline {
               $url/rest/workspaces/$GEOSERVER_WORKSPACE/datastores
 
             curl -v -u admin:$GEOSERVER_PASSWORD -XPOST -H "Content-type: text/xml" \
-              -d "<featureType><name>gagesii</name><nativeCRS>EPSG:4269</nativeCRS><srs>EPSG:900913</srs></featureType>" \
+              -d "<featureType><name>gagesii</name><nativeCRS>EPSG:4269</nativeCRS><srs>EPSG:4269</srs></featureType>" \
               $url/rest/workspaces/$GEOSERVER_WORKSPACE/datastores/$GEOSERVER_STORE/featuretypes
 
             curl -v -u admin:$GEOSERVER_PASSWORD -XPOST -H "Content-type: text/xml" \
-              -d "<featureType><name>huc08</name><nativeCRS>EPSG:4269</nativeCRS><srs>EPSG:900913</srs></featureType>" \
+              -d "<featureType><name>huc08</name><nativeCRS>EPSG:4269</nativeCRS><srsEPSG:4269</srs></featureType>" \
               $url/rest/workspaces/$GEOSERVER_WORKSPACE/datastores/$GEOSERVER_STORE/featuretypes
 
             curl -v -u admin:$GEOSERVER_PASSWORD -XPOST -H "Content-type: text/xml" \
-              -d "<featureType><name>huc12</name><nativeCRS>EPSG:4269</nativeCRS><srs>EPSG:900913</srs></featureType>" \
+              -d "<featureType><name>huc12</name><nativeCRS>EPSG:4269</nativeCRS><srs>EPSG:4269</srs></featureType>" \
               $url/rest/workspaces/$GEOSERVER_WORKSPACE/datastores/$GEOSERVER_STORE/featuretypes
 
             curl -v -u admin:$GEOSERVER_PASSWORD -XPOST -H "Content-type: text/xml" \
-              -d "<featureType><name>huc12all</name><nativeCRS>EPSG:4269</nativeCRS><srs>EPSG:900913</srs></featureType>" \
+              -d "<featureType><name>huc12all</name><nativeCRS>EPSG:4269</nativeCRS><srs>EPSG:4269</srs></featureType>" \
               $url/rest/workspaces/$GEOSERVER_WORKSPACE/datastores/$GEOSERVER_STORE/featuretypes
 
             curl -v -u admin:$GEOSERVER_PASSWORD -XPOST -H "Content-type: text/xml" \
-              -d "<featureType><name>huc12agg</name><nativeCRS>EPSG:4269</nativeCRS><srs>EPSG:900913</srs></featureType>" \
+              -d "<featureType><name>huc12agg</name><nativeCRS>EPSG:4269</nativeCRS><srs>EPSG:4269</srs></featureType>" \
               $url/rest/workspaces/$GEOSERVER_WORKSPACE/datastores/$GEOSERVER_STORE/featuretypes
 
             curl -v -u admin:$GEOSERVER_PASSWORD -XPOST -H "Content-type: text/xml" \
