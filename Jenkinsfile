@@ -113,6 +113,10 @@ pipeline {
               $url/rest/workspaces/$GEOSERVER_WORKSPACE/datastores/$GEOSERVER_STORE/featuretypes
 
             curl -v -u admin:$GEOSERVER_PASSWORD -XPOST -H "Content-type: text/xml" \
+              -d "<featureType><name>nhdflowline_nonnetwork</name><nativeCRS>EPSG:4269</nativeCRS><srs>EPSG:4269</srs></featureType>" \
+              $url/rest/workspaces/$GEOSERVER_WORKSPACE/datastores/$GEOSERVER_STORE/featuretypes
+
+            curl -v -u admin:$GEOSERVER_PASSWORD -XPOST -H "Content-type: text/xml" \
               -d "<featureType><name>nhdwaterbody</name><nativeCRS>EPSG:4269</nativeCRS><srs>EPSG:4269</srs></featureType>" \
               $url/rest/workspaces/$GEOSERVER_WORKSPACE/datastores/$GEOSERVER_STORE/featuretypes
             '''
