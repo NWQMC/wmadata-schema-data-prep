@@ -1,7 +1,7 @@
 pipeline {
   agent {
     node {
-      label 'team:iow'
+      label 'team:nhgf'
     }
   }
   stages {
@@ -33,16 +33,15 @@ pipeline {
     stage('Run geoserver config') {
       steps {
         script {
-          def wqpSecretsString = sh(script: '/usr/local/bin/aws ssm get-parameter --name "/aws/reference/secretsmanager/WQP-EXTERNAL-$DEPLOY_STAGE" --query "Parameter.Value" --with-decryption --output text --region "us-west-2"', returnStdout: true).trim()
+          def nldiSecretsString = sh(script: '/usr/local/bin/aws ssm get-parameter --name "/aws/reference/secretsmanager/NLDI_$DEPLOY_STAGE" --query "Parameter.Value" --with-decryption --output text --region "us-west-2"', returnStdout: true).trim()
           def iowGeoSecretsString = sh(script: '/usr/local/bin/aws ssm get-parameter --name "/aws/reference/secretsmanager/IOW-GEOSERVER" --query "Parameter.Value" --with-decryption --output text --region "us-west-2"', returnStdout: true).trim()
-          def wqpSecretsJson  =  readJSON text: wqpSecretsString
+          def nldiSecretsJson  =  readJSON text: nldiSecretsString
           def iowGeoSecretsJson = readJSON text: iowGeoSecretsString
-          env.NWIS_DATABASE_ADDRESS = wqpSecretsJson.DATABASE_ADDRESS
-          env.NWIS_DATABASE_NAME = wqpSecretsJson.DATABASE_NAME
-          env.WMADATA_SCHEMA_NAME = wqpSecretsJson.WMADATA_SCHEMA_NAME
-          env.WMADATA_DB_READ_ONLY_USERNAME = wqpSecretsJson.WMADATA_DB_READ_ONLY_USERNAME
-          env.WMADATA_DB_READ_ONLY_PASSWORD = wqpSecretsJson.WMADATA_DB_READ_ONLY_PASSWORD
-          env.POSTGRES_PASSWORD = wqpSecretsJson.POSTGRES_PASSWORD
+          env.NWIS_DATABASE_ADDRESS = nldiSecretsJson.DATABASE_ADDRESS
+          env.NWIS_DATABASE_NAME = nldiSecretsJson.DATABASE_NAME
+          env.WMADATA_SCHEMA_NAME = nldiSecretsJson.WMADATA_SCHEMA_NAME
+          env.WMADATA_DB_READ_ONLY_USERNAME = nldiSecretsJson.WMADATA_DB_READ_ONLY_USERNAME
+          env.WMADATA_DB_READ_ONLY_PASSWORD = nldiSecretsJson.WMADATA_DB_READ_ONLY_PASSWORD
           env.GEOSERVER_PASSWORD = iowGeoSecretsJson.admin
           env.GEOSERVER_WORKSPACE = 'wmadata'
           env.GEOSERVER_STORE = 'wmadata'
@@ -50,8 +49,6 @@ pipeline {
           sh '''
             if [ $DEPLOY_STAGE == "TEST" ]; then
                url="https://labs-dev.wma.chs.usgs.gov/geoserver"
-            elif [ $DEPLOY_STAGE == "QA" ]; then
-               url="https://labs-beta.waterdata.usgs.gov/geoserver"
             else
                url="https://labs.waterdata.usgs.gov/geoserver"
             fi
